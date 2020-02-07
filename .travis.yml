@@ -28,11 +28,16 @@ script:
   - hexo g
 
 after_success:
-  - cd ./public
-  - git init
   - git config --global user.name "voidking"
   - git config --global user.email "voidking@qq.com"
+  - git clone https://${GITHUB_TOKEN}@${GITHUB_PAGES_REPO} voidking
+  - unalias cp && cp -rf public/* voidking
+  - cd voidking
   - git add .
   - git commit -m "Travis CI Auto Builder"
   - git push --force --quiet "https://${GITHUB_TOKEN}@${GITHUB_PAGES_REPO}" master
+  - cd ../public
+  - git init
+  - git add .
+  - git commit -m "Travis CI Auto Builder"
   - git push --force --quiet "https://${GITHUB_TOKEN}@${VOIDKING_REPO}" master
