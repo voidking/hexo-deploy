@@ -1,0 +1,36 @@
+sudo: false
+language: node_js
+node_js:
+  - 10.16.3
+cache: npm
+branches:
+  only:
+    - master # build master branch only
+
+env:
+ global:
+   - HEXO_BACKUP_REPO: github.com/voidking/hexo-backup.git
+   - HEXT_THEME_REPO: github.com/voidking/hexo-theme-next.git
+   - GITHUB_PAGES_REPO: github.com/voidking/voidking.github.io.git
+
+before_install:
+  - npm install hexo -g
+
+install:
+  - npm install
+
+script:
+  - git clone https://${HEXO_THEME_REPO} themes/next
+  - git clone https://${GITHUB_TOKEN}@${HEXO_BACKUP_REPO} hexo-backup
+  - mv hexo-backup/source .
+  - rm -rf source/private
+  - hexo g
+
+after_success:
+  - cd ./public
+  - git init
+  - git config --global user.name "voidking"
+  - git config --global user.email "voidking@qq.com"
+  - git add .
+  - git commit -m "Travis CI Auto Builder"
+  - git push --force --quiet "https://${GITHUB_TOKEN}@${GITHUB_PAGES_REPO}" master
