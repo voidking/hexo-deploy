@@ -1,4 +1,4 @@
-sudo: false
+root: false
 language: node_js
 node_js:
   - 10.16.3
@@ -16,6 +16,7 @@ env:
 
 before_install:
   - npm install hexo -g
+  - npm install gulp-cli -g
 
 install:
   - npm install
@@ -25,7 +26,7 @@ script:
   - git clone https://${GITHUB_TOKEN}@${HEXO_BACKUP_REPO} hexo-backup
   - mv hexo-backup/source .
   - rm -rf source/private
-  - hexo g
+  - npm run build
 
 after_success:
   - git config --global user.name "voidking"
@@ -36,8 +37,3 @@ after_success:
   - git add .
   - git commit -m "Travis CI Auto Builder"
   - git push --force --quiet "https://${GITHUB_TOKEN}@${GITHUB_PAGES_REPO}" master
-  - cd ../public
-  - git init
-  - git add .
-  - git commit -m "Travis CI Auto Builder"
-  - git push --force --quiet "https://${GITHUB_TOKEN}@${VOIDKING_REPO}" master
