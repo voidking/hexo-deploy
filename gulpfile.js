@@ -75,4 +75,4 @@ gulp.task('minify-images', function() {
     .pipe(gulp.dest('./public/images'))
 })
 
-gulp.task('default', gulp.series('minify-html', 'minify-css', 'minify-js'))
+gulp.task('default', gulp.series('minify-html', 'minify-css'))
