@@ -5,13 +5,14 @@ let htmlclean = require('gulp-htmlclean')
 let babel = require('gulp-babel') /* 转换为es2015 */
 let uglify = require('gulp-uglify')
 let imagemin = require('gulp-imagemin')
-// 压缩html
 
 // 设置根目录
 const root = './public'
 
 // 匹配模式， **/*代表匹配所有目录下的所有文件
 const pattern = '**/*'
+
+// 压缩html
 gulp.task('minify-html', function() {
   return gulp
     // 匹配所有 .html结尾的文件
