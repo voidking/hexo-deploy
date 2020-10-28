@@ -22,7 +22,7 @@ install:
   - npm install
 
 script:
-  - git clone https://${HEXO_THEME_REPO} themes/next
+  - git clone -b root https://${HEXO_THEME_REPO} themes/next
   - git clone https://${GITHUB_TOKEN}@${HEXO_BACKUP_REPO} hexo-backup
   - mv hexo-backup/source .
   - rm -rf source/private
